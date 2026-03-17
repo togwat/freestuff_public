@@ -11,3 +11,8 @@ freestuff-php exited with code 255
 `Warning: file_put_contents(/home/freestuff/storage/cache/stats.html): Failed to open stream: No such file or directory in /home/freestuff/public_html/front_end/templates/common_footer.php on line 62`
 It appears that the file `storage/cache/stats.html` does not exist.
 **Fix**: Initialise a stats.html file at the stated location, it can be empty. This can be a part of /start.sh.
+
+---
+**Feature change**: Showing reserved status when browsing listings.
+Currently, reserved listings have no visual difference compared to available listings unless the user clicks into the listing. This change adds a badge to indicate a listing is reserved while browsing, and should help users quickly know which listings are reserved and not open to requests.
+![alt text](changes_md_images/readme_1.png)

@@ -18,6 +18,7 @@
 
                 $row_is_wanted = ($listing['listing_type'] == 'wanted');
                 $row_is_my_listing = ($listing['user_id'] == SESSION_USER_ID);
+                $row_is_reserved = ($listing['listing_status'] == 'reserved');
 
                 $temp_img = new FileHelper('listing_images', $row_listing_id);
                 $thumbnail = $temp_img->getImagePathFromTag("most_recent_upload", 320, 320); ?>
@@ -29,7 +30,7 @@
                         </div>
                         <div class="listing-body">
                             <?php
-                            if ($row_is_wanted || $row_is_my_listing) {
+                            if ($row_is_wanted || $row_is_my_listing || $row_is_reserved) {
                                 ?>
                                 <div class="h6 mb-1">
                                     <?php
@@ -42,6 +43,12 @@
                                     if ($row_is_my_listing) {
                                         ?>
                                         <span class="badge badge-warning">My Listing</span>
+                                        <?
+                                    }
+                                    
+                                    if ($row_is_reserved) {
+                                        ?>
+                                        <span class="badge badge-warning">Reserved</span>
                                         <?
                                     }
                                     ?>
