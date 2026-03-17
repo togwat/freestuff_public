@@ -1,5 +1,6 @@
 $(function () {
-    var uploadedImages = [];
+    var uploadedImages = {};
+    var imageCounter = 0;   // for ids/keys for uploadedImages dict
     var currentImage;
 
     var cropper = $('#picture').croppie({
@@ -49,12 +50,29 @@ $(function () {
     $('#add-picture').on('click', function() {
         // adds the uploaded picture into a container div below the image editor
         if (!currentImage) return;
-        uploadedImages.push(currentImage);
+        const id = imageCounter++;
+        uploadedImages[id] = currentImage;
         
-        // TODO: contain image in a div with a remove button
-        const img = $('<img>').attr('src', currentImage).css({ width: '80px', height: '80px', objectFit: 'cover', margin: '4px' });
+        const img = $('<img>').attr('src', currentImage).css({
+            width: '80px', 
+            height: '80px', 
+            objectFit: 'cover', 
+            margin: '4px'
+        });
+        const removeBtn = $('<i>').addClass('fa fa-times').css({
+            position: 'absolute',
+            top: '8px',
+            right: '8px',
+        });
         
-        $('#added-picture-container').append(img);
+        const wrapper = $('<div>').addClass('col-4 col-sm-3 col-md-2 p-1').attr('data-id', id).append(img, removeBtn);
+
+        $('#added-picture-container').append(wrapper);
+
+        removeBtn.on('click', function() {
+            delete uploadedImages[id];
+            wrapper.remove();
+        });
     });
 
     cropper.on('update.croppie', function (ev, cropData) {
@@ -98,7 +116,7 @@ $(function () {
         // upload all images in uploadedImages via input 'image_data'
         onStart: function() {
             // make a new image_data input for every image
-            $.each(uploadedImages, function(i, data) {
+            $.each(uploadedImages, function(id, data) {
                 $('#list_form').append($('<input>').attr({
                     type: 'hidden',
                     name: 'image_data[]'

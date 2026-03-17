@@ -77,7 +77,7 @@
                             <div class="text-left text-md-center mb-3">
                                 <button id='add-picture' type="button" class="btn secondary <?=($btn_style) ?>">Add Picture</button>
                             </div>
-                            <div id="added-picture-container"></div>
+                            <div id="added-picture-container" class="row"></div>
                         </div>
                     </div>
                 </div>
