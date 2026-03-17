@@ -25,7 +25,7 @@
             $row_listing_id = $listing['listing_id'];
 
             $temp_img = new FileHelper('listing_images', $row_listing_id);
-            $fullsize_img = $temp_img->getImagePathFromTag("most_recent_upload", 120, 120);
+            $fullsize_img = $temp_img->getImagePathFromTag("first_upload", 120, 120);
             ?>
             <tr data-listing_id="<?=($row_listing_id)?>">
                 <td>

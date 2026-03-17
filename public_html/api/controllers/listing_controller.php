@@ -33,14 +33,14 @@ class ListingController extends _Controller {
 
     public function imageThumb($listing_id) {
         $temp_img = new FileHelper('listing_images', $listing_id);
-        $tmp_img = $temp_img->getImagePathFromTag("most_recent_upload", 80, 80);
+        $tmp_img = $temp_img->getImagePathFromTag("first_upload", 80, 80);
         header('Content-Type: image/jpeg');
         readfile($tmp_img);
     }
 
     public function image($listing_id) {
         $temp_img = new FileHelper('listing_images', $listing_id);
-        $tmp_img = $temp_img->getImagePathFromTag("most_recent_upload", 600, 600);
+        $tmp_img = $temp_img->getImagePathFromTag("first_upload", 600, 600);
         header('Content-Type: image/jpeg');
         readfile($tmp_img);
     }

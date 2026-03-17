@@ -5,9 +5,9 @@
             <?
             // Get image URLs
             $temp_img = new FileHelper('listing_images', $listing->listing_id);
-            $thumbnail = $temp_img->getImagePathFromTag("most_recent_upload", 600, 600);
+            $thumbnail = $temp_img->getImagePathFromTag("first_upload", 600, 600);
 
-            $ih = $temp_img->getImageHelperFromTag("most_recent_upload");
+            $ih = $temp_img->getImageHelperFromTag("first_upload");
             $ih->setTargetWidthAndHeight('1200', '1200', 'thumbnail');
             $fullsize_img = $temp_img->cacheImageFromImageHelper($ih);
             ?>

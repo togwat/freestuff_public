@@ -30,7 +30,7 @@ class ConversationThumbnailHandler {
                 }
 
                 $_fh_img = new FileHelper('listing_images', $_listing_id);
-                $_img_thumbnail = $_fh_img->getImagePathFromTag("most_recent_upload", $_thumb_w, $_thumb_h);
+                $_img_thumbnail = $_fh_img->getImagePathFromTag("first_upload", $_thumb_w, $_thumb_h);
 
                 $_listing_seo = seoFriendlyURLs($_listing_id, "listing", FALSE, $_listing['title']);
 

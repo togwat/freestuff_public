@@ -12,7 +12,7 @@ function returnItemString($items) {
 		$description = $item['description'];
 
 		$temp_img = new FileHelper('listing_images', $listing_id);
-		$image = $temp_img->getImagePathFromTag("most_recent_upload",100,100);
+		$image = $temp_img->getImagePathFromTag("first_upload",100,100);
 
 		$listing_url = SITE_URL . seoFriendlyURLs($listing_id, "listing", '', $title);
 		

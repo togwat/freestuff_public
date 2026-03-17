@@ -23,7 +23,7 @@
 						<div class="controls">
 							<?
 							$fh = new FileHelper('listing_images', $listing->listing_id);
-							$tmp_img = $fh->getImagePathFromTag("most_recent_upload", 120, 120);
+							$tmp_img = $fh->getImagePathFromTag("first_upload", 120, 120);
 							?>
 							<img src="<?=($tmp_img)?>" />
 						</div>

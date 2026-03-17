@@ -10,12 +10,12 @@ class ListController extends _Controller {
 
         if (!empty($temp_id)) {
             $temp_img = new FileHelper('temporary_listing_image', "temp_" . $temp_id);
-            $thumbnail = $temp_img->getImagePathFromTag("most_recent_upload", 240, 240);
+            $thumbnail = $temp_img->getImagePathFromTag("first_upload", 240, 240);
             echo $thumbnail;
 
         } elseif (!empty($listing_id)) {
             $temp_img = new FileHelper('listing_images', $listing_id);
-            $thumbnail = $temp_img->getImagePathFromTag("most_recent_upload", 240, 240);
+            $thumbnail = $temp_img->getImagePathFromTag("first_upload", 240, 240);
             echo $thumbnail;
         }
         die();

@@ -28,7 +28,7 @@
 				$row_checked = ($row_index < 12) ? " checked='checked'" : "";
 
 				$row_img = new FileHelper('listing_images', $row_listing_id);
-				$row_img_url = $row_img->getImagePathFromTag("most_recent_upload", 100, 100);
+				$row_img_url = $row_img->getImagePathFromTag("first_upload", 100, 100);
 				?>
 				<tr>
 					<td>

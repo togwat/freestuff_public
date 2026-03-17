@@ -150,7 +150,7 @@
                                 $tmp_title = preg_replace("/,([^\s])/", ", $1", $v['title']);
                                 $tmp_description = $v["description"];
                                 $temp_img = new FileHelper('listing_images', $tmp_id);
-                                $tmp_img = $temp_img->getImagePathFromTag("most_recent_upload", 320, 320);
+                                $tmp_img = $temp_img->getImagePathFromTag("first_upload", 320, 320);
                                 $tmp_url = seoFriendlyURLs($tmp_id, "listing", FALSE, $tmp_title);
                                 $extra_class = $k == 2 ? 'd-none d-lg-block' : ($k == 1 ? 'd-none d-md-block' : '');
                                 ?>
@@ -214,7 +214,7 @@
                                     $tmp_title = preg_replace("/,([^\s])/", ", $1", $v['title']);
                                     $tmp_description = $v["description"];
                                     $temp_img = new FileHelper('listing_images', $tmp_id);
-                                    $tmp_img = $temp_img->getImagePathFromTag("most_recent_upload", 320, 320);
+                                    $tmp_img = $temp_img->getImagePathFromTag("first_upload", 320, 320);
                                     $tmp_url = seoFriendlyURLs($tmp_id, "listing", FALSE, $tmp_title);
                                     $extra_class = $k == 2 ? 'd-none d-lg-block' : ($k == 1 ? 'd-none d-md-block' : '');
                                     ?>

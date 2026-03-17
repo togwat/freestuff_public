@@ -47,7 +47,7 @@
 				$tmp_url = seoFriendlyURLs($tmp_id, "listing", FALSE, $tmp_title);
 
 				$tmp_img = new FileHelper('listing_images', $tmp_id);
-				$thumbnail = $tmp_img->getImagePathFromTag("most_recent_upload", 320, 320); ?>
+				$thumbnail = $tmp_img->getImagePathFromTag("first_upload", 320, 320); ?>
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3 listing-item-col">
                     <a class='listing-item listing-item-home text-left' href="<?= ($tmp_url) ?>">
                         <div class='pic_bit'>

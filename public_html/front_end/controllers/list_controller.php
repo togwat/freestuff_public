@@ -28,7 +28,7 @@ class ListController extends _Controller {
 
 
         $temp_img = new FileHelper('listing_images', $listing->listing_id);
-        $image = $temp_img->getImagePathFromTag("most_recent_upload", 240, 240, "thumbnail", false);
+        $image = $temp_img->getImagePathFromTag("first_upload", 240, 240, "thumbnail", false);
         PageHelper::addJsVar('image', '');
         PageHelper::addJsVar('listing_url', '');
         PageHelper::addJsVar('listing_id', '');
@@ -44,12 +44,12 @@ class ListController extends _Controller {
 
         if (!empty($temp_id)) {
             $temp_img = new FileHelper('temporary_listing_image', "temp_" . $temp_id);
-            $thumbnail = $temp_img->getImagePathFromTag("most_recent_upload", 240, 240);
+            $thumbnail = $temp_img->getImagePathFromTag("first_upload", 240, 240);
             echo $thumbnail;
 
         } elseif (!empty($listing_id)) {
             $temp_img = new FileHelper('listing_images', $listing_id);
-            $thumbnail = $temp_img->getImagePathFromTag("most_recent_upload", 240, 240);
+            $thumbnail = $temp_img->getImagePathFromTag("first_upload", 240, 240);
             echo $thumbnail;
         }
         die();
@@ -95,11 +95,17 @@ class ListController extends _Controller {
             if ($listing->insertListing()) {
                 if (isset($_POST["image_data"])) {
                     $fh = new FileHelper("listing_images", $listing->listing_id);
+                    $is_first = true;   // add new tag for first image, for thumbnails
                     foreach ((array)$_POST["image_data"] as $raw) {
                         $data = StringHelper::base64_decode($raw);
                         if (strlen($data) >= 100) {
+                            if($is_first) {
+                                $is_first = false;
+                                $fh->addTag('first_upload');
+                            }
                             $fh->importData($data, "image.jpeg");
                             $listing->hasImage();
+                            $fh->resetUploadTags();
                         }
                     }
                 }
@@ -178,7 +184,7 @@ class ListController extends _Controller {
         BreadcrumbHelper::addBreadcrumbs('Edit');
 
         $temp_img = new FileHelper('listing_images', $listing->listing_id);
-        $image = $temp_img->getImagePathFromTag("most_recent_upload", 240, 240, "thumbnail", false);
+        $image = $temp_img->getImagePathFromTag("first_upload", 240, 240, "thumbnail", false);
         PageHelper::addJsVar('image', $image);
         PageHelper::addJsVar('listing_url', seoFriendlyURLs($listing->listing_id, "listing", false, $listing->title));
         PageHelper::addJsVar('listing_id', $listing->listing_id);
