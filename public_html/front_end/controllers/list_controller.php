@@ -67,12 +67,21 @@ class ListController extends _Controller {
         if ($is_edit) {
             if ($listing->updateFrontEnd()) {
                 if (isset($_POST["image_data"])) {
+                    // reset a file helper completely
+                    $old_fh = new FileHelper("listing_images", $listing->listing_id);
+                    $old_fh->delete();
                     $fh = new FileHelper("listing_images", $listing->listing_id);
-                    $fh->delete();
+
+                    $is_first = true;   // add new tag for first image, for thumbnails
                     foreach ((array)$_POST["image_data"] as $raw) {
                         $data = StringHelper::base64_decode($raw);
                         if (strlen($data) >= 100) {
+                            if($is_first) {
+                                $is_first = false;
+                                $fh->addTag('first_upload');
+                            }
                             $fh->importData($data, "image.jpeg");
+                            $fh->resetUploadTags();
                         }
                     }
                 }
@@ -95,6 +104,7 @@ class ListController extends _Controller {
             if ($listing->insertListing()) {
                 if (isset($_POST["image_data"])) {
                     $fh = new FileHelper("listing_images", $listing->listing_id);
+                    
                     $is_first = true;   // add new tag for first image, for thumbnails
                     foreach ((array)$_POST["image_data"] as $raw) {
                         $data = StringHelper::base64_decode($raw);
@@ -188,6 +198,16 @@ class ListController extends _Controller {
         PageHelper::addJsVar('image', $image);
         PageHelper::addJsVar('listing_url', seoFriendlyURLs($listing->listing_id, "listing", false, $listing->title));
         PageHelper::addJsVar('listing_id', $listing->listing_id);
+
+        // re-encode existing images so they can be shown in #added-picture-container
+        // could be optimised by not needing to remove and reupload the entire gallery
+        $existing_images = [];
+        foreach ($temp_img->getAllImages() as $filename) {
+            $path = $temp_img->getFullPath($filename);
+            $existing_images[] = 'data:image/jpeg;base64,' . base64_encode(file_get_contents($path));
+        }
+
+        PageHelper::addJsVar('existing_images', $existing_images);
 
         # set default $user object
         include("templates/main_layout.php");

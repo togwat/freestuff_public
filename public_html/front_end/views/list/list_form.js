@@ -137,6 +137,14 @@ $(function () {
         }
     });
 
+    // re-add all existing images during edit mode, if there are any
+    if ($php.existing_images) {
+        $.each($php.existing_images, function(i, img) {
+            currentImage = img;
+            $('#add-picture').trigger('click');
+        });
+    }
+    
     $('#list_form #listing_type input').change(function () {
         var val = $(this).val();
         $('.agree').toggleClass('d-none', true);

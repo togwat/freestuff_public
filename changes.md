@@ -19,8 +19,14 @@ Currently, reserved listings have no visual difference compared to available lis
 
 ---
 **Feature change**: Upload multiple pictures.
-This change allows a user to upload multiple pictures to a listing, with an image gallery on the listing's page. The first image would still be used as the thumbnail for browsing.
+This change allows a user to upload multiple pictures to a listing, with an image gallery on the listing's page. The first uploaded image would be used as the thumbnail for browsing.
 
 Image carousel using bootstrap displays multiple images on listing page.
+![alt text](changes_md_images/readme_3.png)
 
 After uploading a picture and tweaking it with croppie, the user can add the picture to a list of pictures for the listing, with ability to remove unwanted pictures.
+![alt text](changes_md_images/readme_2.png)
+
+When editing an existing listing, the list of pictures can still be modified, with the user being able to add or remove any picture at will.
+![alt text](changes_md_images/readme_4.png)
+
