@@ -2,17 +2,10 @@
     <div class="row" id="listing-page" data-listing_id="<?= ($listing->listing_id) ?>">
         <div class="col-12 col-md-6 text-center text-md-left mb-4 mb-md-0">
             <?
-            $temp_img = new FileHelper('listing_images', $listing->listing_id);
-            $thumbnail = $temp_img->getImagePathFromTag("most_recent_upload", 600, 600);
-            $ih = $temp_img->getImageHelperFromTag("most_recent_upload");
-
-            $ih->setTargetWidthAndHeight('1200', '1200', 'thumbnail');
-            $fullsize_img = $temp_img->cacheImageFromImageHelper($ih);
-
             $listing_url = SITE_URL . seoFriendlyURLs($listing->listing_id, "listing", '', $listing->title);
+            // image display moved to image_carousel.php
+            include("views/view/image_carousel.php");
             ?>
-            <a href="<?= ($fullsize_img) ?>" target="_blank" class="d-block mb-3"><img class="listing_image"
-                                                                                       src="<?= ($thumbnail) ?>"/></a>
             <?
             if ($listing->isActive()) {
                 ?>

@@ -16,3 +16,9 @@ It appears that the file `storage/cache/stats.html` does not exist.
 **Feature change**: Showing reserved status when browsing listings.
 Currently, reserved listings have no visual difference compared to available listings unless the user clicks into the listing. This change adds a badge to indicate a listing is reserved while browsing, and should help users quickly know which listings are reserved and not open to requests.
 ![alt text](changes_md_images/readme_1.png)
+
+---
+**Feature change**: Upload multiple pictures.
+This change allows a user to upload multiple pictures to a listing, with an image gallery on the listing's page. The first image would still be used as the thumbnail for browsing.
+
+Image carousel using bootstrap displays multiple images on listing page.
