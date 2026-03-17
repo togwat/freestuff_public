@@ -28,6 +28,7 @@ $slider_id = 'listing-slider-' . $listing->listing_id;
     </div>
 
     <!--one indicator for each image-->
+    <?php if (count($images) > 1): ?>
     <ol class="carousel-indicators">
         <? foreach ($images as $i => $img): ?>
             <li data-target="#image_carousel" data-slide-to="<?= $i ?>" <?= ($i === 0 ? 'class="active"' : '') ?>></li>
@@ -43,4 +44,5 @@ $slider_id = 'listing-slider-' . $listing->listing_id;
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
+    <?php endif; ?>
 </div>
