@@ -1,18 +1,16 @@
 <?
-$temp_img = new FileHelper('listing_images', $listing->listing_id);
-$thumbnail = $temp_img->getImagePathFromTag("most_recent_upload", 600, 600);
+$fh = new FileHelper('listing_images', $listing->listing_id);
 
-$ih = $temp_img->getImageHelperFromTag("most_recent_upload");
+$images = [];
 
-$ih->setTargetWidthAndHeight('1200', '1200', 'thumbnail');
-$fullsize_img = $temp_img->cacheImageFromImageHelper($ih);
-
-// temp: repeat image 3 times for slider testing
-$images = [
-    ['thumb' => $thumbnail, 'full' => $fullsize_img],
-    ['thumb' => $thumbnail, 'full' => $fullsize_img],
-    ['thumb' => $thumbnail, 'full' => $fullsize_img],
-];
+foreach ($fh->getAllImages() as $img) {
+    $thumbnail = $fh->getImagePathFromFilename($img, 600, 600);
+    $full = $fh->getImagePathFromfilename($img, 1200, 1200);
+    $images[] = [
+        'thumb' => $thumbnail,
+        'full' => $full
+    ];
+}
 
 $slider_id = 'listing-slider-' . $listing->listing_id;
 ?>

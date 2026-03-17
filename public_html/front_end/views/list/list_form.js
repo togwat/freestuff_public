@@ -1,4 +1,7 @@
 $(function () {
+    var uploadedImages = [];
+    var currentImage;
+
     var cropper = $('#picture').croppie({
         url: $php.image,
         enableExif: false,
@@ -22,6 +25,7 @@ $(function () {
             reader.onload = function (e) {
                 $('#picture').addClass('ready');
                 $('#rotate').removeClass('d-none');
+                $('#add-picture').removeClass('d-none');
                 cropper.croppie('bind', {
                     url: e.target.result,
                     zoom: 0
@@ -42,9 +46,20 @@ $(function () {
         cropper.croppie('rotate', -90);
     });
 
+    $('#add-picture').on('click', function() {
+        // adds the uploaded picture into a container div below the image editor
+        if (!currentImage) return;
+        uploadedImages.push(currentImage);
+        
+        // TODO: contain image in a div with a remove button
+        const img = $('<img>').attr('src', currentImage).css({ width: '80px', height: '80px', objectFit: 'cover', margin: '4px' });
+        
+        $('#added-picture-container').append(img);
+    });
+
     cropper.on('update.croppie', function (ev, cropData) {
         cropper.croppie('result', {type: 'base64', size: {width: 800}, format: 'jpeg'}).then(function (data) {
-            $("input[name='image_data']").val(data);
+            currentImage = data;
         });
     });
 
@@ -80,6 +95,17 @@ $(function () {
     });
 
     $('#list_form').formTools2({
+        // upload all images in uploadedImages via input 'image_data'
+        onStart: function() {
+            // make a new image_data input for every image
+            $.each(uploadedImages, function(i, data) {
+                $('#list_form').append($('<input>').attr({
+                    type: 'hidden',
+                    name: 'image_data[]'
+                }).val(data));
+            });
+        },
+
         successMsg: false,
         onComplete: function (listing_id) {
             $('.btn-submit-form').attr('disabled', false);

@@ -67,12 +67,13 @@ class ListController extends _Controller {
         if ($is_edit) {
             if ($listing->updateFrontEnd()) {
                 if (isset($_POST["image_data"])) {
-                    $data = StringHelper::base64_decode($_POST["image_data"]);
                     $fh = new FileHelper("listing_images", $listing->listing_id);
-                    if (strlen($data) < 100) {
-                        $fh->delete();
-                    } else {
-                        $fh->importData($data, "image.jpeg");
+                    $fh->delete();
+                    foreach ((array)$_POST["image_data"] as $raw) {
+                        $data = StringHelper::base64_decode($raw);
+                        if (strlen($data) >= 100) {
+                            $fh->importData($data, "image.jpeg");
+                        }
                     }
                 }
 
@@ -93,13 +94,13 @@ class ListController extends _Controller {
 
             if ($listing->insertListing()) {
                 if (isset($_POST["image_data"])) {
-                    $data = StringHelper::base64_decode($_POST["image_data"]);
                     $fh = new FileHelper("listing_images", $listing->listing_id);
-                    if (strlen($data) < 100) {
-                        $fh->delete();
-                    } else {
-                        $fh->importData($data, "image.jpeg");
-                        $listing->hasImage();
+                    foreach ((array)$_POST["image_data"] as $raw) {
+                        $data = StringHelper::base64_decode($raw);
+                        if (strlen($data) >= 100) {
+                            $fh->importData($data, "image.jpeg");
+                            $listing->hasImage();
+                        }
                     }
                 }
 

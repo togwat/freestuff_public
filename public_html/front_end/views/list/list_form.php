@@ -7,7 +7,10 @@
     ?>
     <form method="post" action="list/save" id='list_form' class="row">
         <? /* [ML] populated by croppie*/ ?>
+
+        <!-- multi-image support: image_data inputs will be added during submission instead
         <input type="hidden" name="image_data">
+        -->
 
         <div class="col-12 px-0 mb-3 mb-md-0">
             <input type='hidden' name='temp_id' value="<?= ($listing->temp_id) ?>"/>
@@ -71,7 +74,10 @@
                                 </div>
                             </div>
                             <div id="picture"></div>
-
+                            <div class="text-left text-md-center mb-3">
+                                <button id='add-picture' type="button" class="btn secondary <?=($btn_style) ?>">Add Picture</button>
+                            </div>
+                            <div id="added-picture-container"></div>
                         </div>
                     </div>
                 </div>
