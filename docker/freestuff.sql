@@ -72,6 +72,16 @@ CREATE TABLE `contact` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+--  Table structure for table `region`
+--
+DROP TABLE IF EXISTS `region`;
+CREATE TABLE `region` (
+  `region_id` int NOT NULL AUTO_INCREMENT,
+  `region` varchar(20) NOT NULL,
+  PRIMARY KEY (`region_id`)
+)ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=latin1;
+
+--
 -- Table structure for table `district`
 --
 
@@ -81,8 +91,9 @@ DROP TABLE IF EXISTS `district`;
 CREATE TABLE `district` (
   `district_id` int NOT NULL AUTO_INCREMENT,
   `district` varchar(45) NOT NULL,
-  `region` varchar(20) NOT NULL,
-  PRIMARY KEY (`district_id`)
+  `region_id` int NOT NULL,
+  PRIMARY KEY (`district_id`),
+  FOREIGN KEY (`region_id`) REFERENCES `region`(`region_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=157 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -512,180 +523,198 @@ CREATE TABLE `user_verify` (
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 
+/*insert regions*/
+INSERT INTO freestuff.region (region_id, region) VALUES
+                                                      (1,'Northland'),
+                                                      (2,'Auckland'),
+                                                      (3,'Waikato'),
+                                                      (4,'Bay of Plenty'),
+                                                      (5,'Gisborne'),
+                                                      (6,'Hawkes Bay'),
+                                                      (7,'Taranaki'),
+                                                      (8,'Manawatu-Wanganui'),
+                                                      (9,'Wellington'),
+                                                      (10,'Nelson-Tasman'),
+                                                      (11,'Marlborough'),
+                                                      (12,'West Coast'),
+                                                      (13,'Canterbury'),
+                                                      (14,'Otago'),
+                                                      (15,'Southland');
+
 /*insert districts*/
 
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (1,'Dargaville','Northland'),
-                                                                 (2,'Kaikohe','Northland'),
-                                                                 (3,'Kaitaia','Northland'),
-                                                                 (4,'Kawakawa','Northland'),
-                                                                 (5,'Kerikeri','Northland'),
-                                                                 (6,'Mangawhai','Northland'),
-                                                                 (7,'Maungaturoto','Northland'),
-                                                                 (8,'Paihia','Northland'),
-                                                                 (9,'Whangarei','Northland'),
-                                                                 (10,'Albany','Auckland');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (11,'Auckland City','Auckland'),
-                                                                 (12,'Botany Downs','Auckland'),
-                                                                 (13,'Clevedon','Auckland'),
-                                                                 (14,'Franklin','Auckland'),
-                                                                 (15,'Great Barrier Island','Auckland'),
-                                                                 (16,'Helensville','Auckland'),
-                                                                 (17,'Henderson','Auckland'),
-                                                                 (18,'Hibiscus Coast','Auckland'),
-                                                                 (19,'Kumeu','Auckland'),
-                                                                 (20,'Mangere','Auckland');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (21,'Manukau','Auckland'),
-                                                                 (22,'New Lynn','Auckland'),
-                                                                 (23,'North Shore','Auckland'),
-                                                                 (24,'Onehunga','Auckland'),
-                                                                 (25,'Papakura','Auckland'),
-                                                                 (26,'Pukekohe','Auckland'),
-                                                                 (27,'Remuera','Auckland'),
-                                                                 (28,'Waiheke Island','Auckland'),
-                                                                 (29,'Waitakere','Auckland'),
-                                                                 (30,'Waiuku','Auckland');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (31,'Warkworth','Auckland'),
-                                                                 (32,'Wellsford','Auckland'),
-                                                                 (33,'Cambridge','Waikato'),
-                                                                 (34,'Coromandel','Waikato'),
-                                                                 (35,'Hamilton','Waikato'),
-                                                                 (36,'Huntly','Waikato'),
-                                                                 (37,'Matamata','Waikato'),
-                                                                 (38,'Morrinsville','Waikato'),
-                                                                 (39,'Ngaruawahia','Waikato'),
-                                                                 (40,'Ngatea','Waikato');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (41,'Otorohanga','Waikato'),
-                                                                 (42,'Paeroa','Waikato'),
-                                                                 (43,'Raglan','Waikato'),
-                                                                 (44,'Taumarunui','Waikato'),
-                                                                 (45,'Taupo','Waikato'),
-                                                                 (46,'Te Awamutu','Waikato'),
-                                                                 (47,'Te Kuiti','Waikato'),
-                                                                 (48,'Thames','Waikato'),
-                                                                 (49,'Tokoroa/Putaruru','Waikato'),
-                                                                 (50,'Turangi','Waikato');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (51,'Waihi','Waikato'),
-                                                                 (52,'Whangamata','Waikato'),
-                                                                 (53,'Whitianga','Waikato'),
-                                                                 (54,'Katikati','Bay of Plenty'),
-                                                                 (55,'Kawerau','Bay of Plenty'),
-                                                                 (56,'Mt. Maunganui','Bay of Plenty'),
-                                                                 (57,'Opotiki','Bay of Plenty'),
-                                                                 (58,'Papamoa','Bay of Plenty'),
-                                                                 (59,'Rotorua','Bay of Plenty'),
-                                                                 (60,'Tauranga','Bay of Plenty');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (61,'Te Puke','Bay of Plenty'),
-                                                                 (62,'Waihi Beach','Bay of Plenty'),
-                                                                 (63,'Whakatane','Bay of Plenty'),
-                                                                 (64,'Gisborne','Gisborne'),
-                                                                 (65,'Ruatoria','Gisborne'),
-                                                                 (66,'Hastings','Hawkes Bay'),
-                                                                 (67,'Napier','Hawkes Bay'),
-                                                                 (68,'Waipukurau','Hawkes Bay'),
-                                                                 (69,'Wairoa','Hawkes Bay'),
-                                                                 (70,'Hawera','Taranaki');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (71,'Mokau','Taranaki'),
-                                                                 (72,'New Plymouth','Taranaki'),
-                                                                 (73,'Opunake','Taranaki'),
-                                                                 (74,'Stratford','Taranaki'),
-                                                                 (75,'Ohakune','Manawatu-Wanganui'),
-                                                                 (76,'Taihape','Manawatu-Wanganui'),
-                                                                 (77,'Waiouru','Manawatu-Wanganui'),
-                                                                 (78,'Whanganui','Manawatu-Wanganui'),
-                                                                 (79,'Bulls','Manawatu-Wanganui'),
-                                                                 (80,'Dannevirke','Manawatu-Wanganui');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (81,'Feilding','Manawatu-Wanganui'),
-                                                                 (82,'Levin','Manawatu-Wanganui'),
-                                                                 (83,'Manawatu','Manawatu-Wanganui'),
-                                                                 (84,'Marton','Manawatu-Wanganui'),
-                                                                 (85,'Pahiatua','Manawatu-Wanganui'),
-                                                                 (86,'Palmerston North','Manawatu-Wanganui'),
-                                                                 (87,'Woodville','Manawatu-Wanganui'),
-                                                                 (88,'Carterton','Wellington'),
-                                                                 (89,'Featherston','Wellington'),
-                                                                 (90,'Greytown','Wellington');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (91,'Martinborough','Wellington'),
-                                                                 (92,'Masterton','Wellington'),
-                                                                 (93,'Kapiti','Wellington'),
-                                                                 (94,'Lower Hutt City','Wellington'),
-                                                                 (95,'Porirua','Wellington'),
-                                                                 (96,'Upper Hutt City','Wellington'),
-                                                                 (97,'Wellington City','Wellington'),
-                                                                 (98,'Golden Bay','Nelson-Tasman'),
-                                                                 (99,'Motueka','Nelson-Tasman'),
-                                                                 (100,'Murchison','Nelson-Tasman');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (101,'Nelson City','Nelson-Tasman'),
-                                                                 (102,'Richmond','Nelson-Tasman'),
-                                                                 (103,'Stoke','Nelson-Tasman'),
-                                                                 (104,'Blenheim','Marlborough'),
-                                                                 (105,'Marlborough Sounds','Marlborough'),
-                                                                 (106,'Picton','Marlborough'),
-                                                                 (107,'Greymouth','West Coast'),
-                                                                 (108,'Hokitika','West Coast'),
-                                                                 (109,'Westport','West Coast'),
-                                                                 (110,'Akaroa','Canterbury');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (111,'Amberley','Canterbury'),
-                                                                 (112,'Ashburton','Canterbury'),
-                                                                 (113,'Belfast','Canterbury'),
-                                                                 (114,'Cheviot','Canterbury'),
-                                                                 (115,'Christchurch City','Canterbury'),
-                                                                 (116,'Darfield','Canterbury'),
-                                                                 (117,'Fairlie','Canterbury'),
-                                                                 (118,'Ferrymead','Canterbury'),
-                                                                 (119,'Geraldine','Canterbury'),
-                                                                 (120,'Halswell','Canterbury');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (121,'Hanmer Springs','Canterbury'),
-                                                                 (122,'Kaiapoi','Canterbury'),
-                                                                 (123,'Kaikoura','Canterbury'),
-                                                                 (124,'Kurow','Canterbury'),
-                                                                 (125,'Lyttelton','Canterbury'),
-                                                                 (126,'Mt Cook','Canterbury'),
-                                                                 (127,'Rangiora','Canterbury'),
-                                                                 (128,'Rolleston','Canterbury'),
-                                                                 (129,'Selwyn','Canterbury'),
-                                                                 (130,'Timaru','Canterbury');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (131,'Twizel','Canterbury'),
-                                                                 (132,'Waimate','Canterbury'),
-                                                                 (133,'Alexandra','Otago'),
-                                                                 (134,'Balclutha','Otago'),
-                                                                 (135,'Cromwell','Otago'),
-                                                                 (136,'Dunedin','Otago'),
-                                                                 (137,'Lawrence','Otago'),
-                                                                 (138,'Milton','Otago'),
-                                                                 (139,'Oamaru','Otago'),
-                                                                 (140,'Palmerston','Otago');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (141,'Queenstown','Otago'),
-                                                                 (142,'Ranfurly','Otago'),
-                                                                 (143,'Roxburgh','Otago'),
-                                                                 (144,'Tapanui','Otago'),
-                                                                 (145,'Wanaka','Otago'),
-                                                                 (146,'Bluff','Southland'),
-                                                                 (147,'Edendale','Southland'),
-                                                                 (148,'Gore','Southland'),
-                                                                 (149,'Invercargill','Southland'),
-                                                                 (150,'Lumsden','Southland');
-INSERT INTO freestuff.district (district_id,district,region) VALUES
-                                                                 (151,'Otautau','Southland'),
-                                                                 (152,'Riverton','Southland'),
-                                                                 (153,'Stewart Island','Southland'),
-                                                                 (154,'Te Anau','Southland'),
-                                                                 (155,'Tokanui','Southland'),
-                                                                 (156,'Winton','Southland');
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (1,'Dargaville',1),
+                                                                 (2,'Kaikohe',1),
+                                                                 (3,'Kaitaia',1),
+                                                                 (4,'Kawakawa',1),
+                                                                 (5,'Kerikeri',1),
+                                                                 (6,'Mangawhai',1),
+                                                                 (7,'Maungaturoto',1),
+                                                                 (8,'Paihia',1),
+                                                                 (9,'Whangarei',1),
+                                                                 (10,'Albany',2);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (11,'Auckland City',2),
+                                                                 (12,'Botany Downs',2),
+                                                                 (13,'Clevedon',2),
+                                                                 (14,'Franklin',2),
+                                                                 (15,'Great Barrier Island',2),
+                                                                 (16,'Helensville',2),
+                                                                 (17,'Henderson',2),
+                                                                 (18,'Hibiscus Coast',2),
+                                                                 (19,'Kumeu',2),
+                                                                 (20,'Mangere',2);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (21,'Manukau',2),
+                                                                 (22,'New Lynn',2),
+                                                                 (23,'North Shore',2),
+                                                                 (24,'Onehunga',2),
+                                                                 (25,'Papakura',2),
+                                                                 (26,'Pukekohe',2),
+                                                                 (27,'Remuera',2),
+                                                                 (28,'Waiheke Island',2),
+                                                                 (29,'Waitakere',2),
+                                                                 (30,'Waiuku',2);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (31,'Warkworth',2),
+                                                                 (32,'Wellsford',2),
+                                                                 (33,'Cambridge',3),
+                                                                 (34,'Coromandel',3),
+                                                                 (35,'Hamilton',3),
+                                                                 (36,'Huntly',3),
+                                                                 (37,'Matamata',3),
+                                                                 (38,'Morrinsville',3),
+                                                                 (39,'Ngaruawahia',3),
+                                                                 (40,'Ngatea',3);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (41,'Otorohanga',3),
+                                                                 (42,'Paeroa',3),
+                                                                 (43,'Raglan',3),
+                                                                 (44,'Taumarunui',3),
+                                                                 (45,'Taupo',3),
+                                                                 (46,'Te Awamutu',3),
+                                                                 (47,'Te Kuiti',3),
+                                                                 (48,'Thames',3),
+                                                                 (49,'Tokoroa/Putaruru',3),
+                                                                 (50,'Turangi',3);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (51,'Waihi',3),
+                                                                 (52,'Whangamata',3),
+                                                                 (53,'Whitianga',3),
+                                                                 (54,'Katikati',4),
+                                                                 (55,'Kawerau',4),
+                                                                 (56,'Mt. Maunganui',4),
+                                                                 (57,'Opotiki',4),
+                                                                 (58,'Papamoa',4),
+                                                                 (59,'Rotorua',4),
+                                                                 (60,'Tauranga',4);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (61,'Te Puke',4),
+                                                                 (62,'Waihi Beach',4),
+                                                                 (63,'Whakatane',4),
+                                                                 (64,'Gisborne',5),
+                                                                 (65,'Ruatoria',5),
+                                                                 (66,'Hastings',6),
+                                                                 (67,'Napier',6),
+                                                                 (68,'Waipukurau',6),
+                                                                 (69,'Wairoa',6),
+                                                                 (70,'Hawera',7);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (71,'Mokau',7),
+                                                                 (72,'New Plymouth',7),
+                                                                 (73,'Opunake',7),
+                                                                 (74,'Stratford',7),
+                                                                 (75,'Ohakune',8),
+                                                                 (76,'Taihape',8),
+                                                                 (77,'Waiouru',8),
+                                                                 (78,'Whanganui',8),
+                                                                 (79,'Bulls',8),
+                                                                 (80,'Dannevirke',8);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (81,'Feilding',8),
+                                                                 (82,'Levin',8),
+                                                                 (83,'Manawatu',8),
+                                                                 (84,'Marton',8),
+                                                                 (85,'Pahiatua',8),
+                                                                 (86,'Palmerston North',8),
+                                                                 (87,'Woodville',8),
+                                                                 (88,'Carterton',9),
+                                                                 (89,'Featherston',9),
+                                                                 (90,'Greytown',9);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (91,'Martinborough',9),
+                                                                 (92,'Masterton',9),
+                                                                 (93,'Kapiti',9),
+                                                                 (94,'Lower Hutt City',9),
+                                                                 (95,'Porirua',9),
+                                                                 (96,'Upper Hutt City',9),
+                                                                 (97,'Wellington City',9),
+                                                                 (98,'Golden Bay',10),
+                                                                 (99,'Motueka',10),
+                                                                 (100,'Murchison',10);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (101,'Nelson City',10),
+                                                                 (102,'Richmond',10),
+                                                                 (103,'Stoke',10),
+                                                                 (104,'Blenheim',11),
+                                                                 (105,'Marlborough Sounds',11),
+                                                                 (106,'Picton',11),
+                                                                 (107,'Greymouth',12),
+                                                                 (108,'Hokitika',12),
+                                                                 (109,'Westport',12),
+                                                                 (110,'Akaroa',13);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (111,'Amberley',13),
+                                                                 (112,'Ashburton',13),
+                                                                 (113,'Belfast',13),
+                                                                 (114,'Cheviot',13),
+                                                                 (115,'Christchurch City',13),
+                                                                 (116,'Darfield',13),
+                                                                 (117,'Fairlie',13),
+                                                                 (118,'Ferrymead',13),
+                                                                 (119,'Geraldine',13),
+                                                                 (120,'Halswell',13);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (121,'Hanmer Springs',13),
+                                                                 (122,'Kaiapoi',13),
+                                                                 (123,'Kaikoura',13),
+                                                                 (124,'Kurow',13),
+                                                                 (125,'Lyttelton',13),
+                                                                 (126,'Mt Cook',13),
+                                                                 (127,'Rangiora',13),
+                                                                 (128,'Rolleston',13),
+                                                                 (129,'Selwyn',13),
+                                                                 (130,'Timaru',13);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (131,'Twizel',13),
+                                                                 (132,'Waimate',13),
+                                                                 (133,'Alexandra',14),
+                                                                 (134,'Balclutha',14),
+                                                                 (135,'Cromwell',14),
+                                                                 (136,'Dunedin',14),
+                                                                 (137,'Lawrence',14),
+                                                                 (138,'Milton',14),
+                                                                 (139,'Oamaru',14),
+                                                                 (140,'Palmerston',14);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (141,'Queenstown',14),
+                                                                 (142,'Ranfurly',14),
+                                                                 (143,'Roxburgh',14),
+                                                                 (144,'Tapanui',14),
+                                                                 (145,'Wanaka',14),
+                                                                 (146,'Bluff',15),
+                                                                 (147,'Edendale',15),
+                                                                 (148,'Gore',15),
+                                                                 (149,'Invercargill',15),
+                                                                 (150,'Lumsden',15);
+INSERT INTO freestuff.district (district_id,district,region_id) VALUES
+                                                                 (151,'Otautau',15),
+                                                                 (152,'Riverton',15),
+                                                                 (153,'Stewart Island',15),
+                                                                 (154,'Te Anau',15),
+                                                                 (155,'Tokanui',15),
+                                                                 (156,'Winton',15);
 
 
 

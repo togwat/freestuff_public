@@ -30,3 +30,7 @@ After uploading a picture and tweaking it with croppie, the user can add the pic
 When editing an existing listing, the list of pictures can still be modified, with the user being able to add or remove any picture at will.
 ![alt text](changes_md_images/readme_4.png)
 
+---
+**Change**: Normalising the database `district` table by creating a new `region` table.\
+This should benefit the database by ensuring consistency for region names and reducing the redundancy of storing region names multiple times.
+The drawback is that more JOIN statements are required when retrieving district and region data. Since the number of regions are small and unlikely to change, keeping a low normal form would still be efficient.

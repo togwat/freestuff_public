@@ -33,9 +33,10 @@ class District extends CRModel {
     public function retrieveFromID($district_id) {
         $district_id = (int)$district_id;
 
-        $sql = "SELECT  district_id, district, region
-				FROM district 
-				WHERE district_id = " . quoteSQL($district_id);
+        $sql = "SELECT d.district_id, d.district, r.region
+				FROM district d
+                LEFT JOIN region r ON r.region_id = d.region_id
+				WHERE d.district_id = " . quoteSQL($district_id);
         $row = runQueryGetFirstRow($sql);
         if ($row) {
             $this->_populateFromArray($row);
@@ -141,7 +142,10 @@ class District extends CRModel {
     }
 
     public static function displayRegion($district_id) {
-        $sql = "SELECT region FROM district WHERE district_id = " . quoteSQL($district_id);
+        $sql = "SELECT r.region 
+                FROM region r 
+                LEFT JOIN district d ON r.region_id = d.region_i 
+                WHERE d.district_id = " . quoteSQL($district_id);
         return runQueryGetFirstValue($sql);
     }
 
@@ -156,7 +160,10 @@ class District extends CRModel {
     public static function getAllNested() {
         //uses session as cache for speed
         if (!isset($_SESSION['district_cache'])) {
-            $sql = "select * from district order by district";
+            $sql = "select d.district_id, d.district, r.region
+                from district d
+                inner join region r on d.region_id = r.region_id
+                order by d.district";
             $result = runQuery($sql);
             $regions = array_fill_keys(self::$regions, array());
 

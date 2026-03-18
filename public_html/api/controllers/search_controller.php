@@ -15,7 +15,11 @@ class SearchController extends _Controller {
                 WHERE l.listing_status IN ('available', 'reserved')";
         $sql .= empty($q) ? "" : " AND (MATCH(title, description) AGAINST (" . quoteSQL($q) . ") OR listing_id = " . quoteSQL(preg_replace("/[^0-9]/", "", $q)) . ")";
         if (!empty($regions)) {
-            $sql .= " AND l.district_id in (select district_id from district where region in " . quoteIN(explode("|",$regions)) .")" ;
+            $sql .= " AND l.district_id in (
+                select d.district_id from district d
+                LEFT JOIN region r ON r.region_id = d.region_id
+                where d.region in " . quoteIN(explode("|",$regions)) ."
+            )" ;
         }
         $listings = new DataWindowHelper("search ", $sql, "listing_date", "desc", paramFromGet('page_size', 20));
         if (paramFromGet("page")) {
