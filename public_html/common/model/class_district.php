@@ -4,9 +4,27 @@ class District extends CRModel {
     public $district_id;
     public $district;
     public $region;
+    public $region_id;
 
-    static $regions = array("Northland", "Auckland", "Waikato", "Bay of Plenty", "Gisborne", "Hawkes Bay", "Taranaki", "Manawatu-Wanganui", "Wellington",
-        "Nelson-Tasman", "Marlborough", "West Coast", "Canterbury", "Otago", "Southland");
+    static $regions = array();
+    static $regions_assoc = array();
+
+    /**
+     * static function to retrieve regions from db
+     */
+    public static function retrieveRegions() {
+        // avoid db calls if region is already filled
+        if (!empty(self::$regions)) {
+            return;
+        }
+        $sql = "SELECT region_id, region FROM region";
+        $result = runQueryGetAll($sql);
+
+        foreach($result as $row) {
+            self::$regions_assoc[$row['region_id']] = $row['region'];
+            self::$regions = array_values(self::$regions_assoc);
+        }
+    }
 
     /**
      * class constructor
@@ -17,6 +35,7 @@ class District extends CRModel {
         $this->region = $region;
         $this->_primary_key = 'district_id';
 
+        self::retrieveRegions();
     }
 
     /**
@@ -24,6 +43,7 @@ class District extends CRModel {
      */
     public function buildFromPost() {
         $this->_populateFromArray($_POST);
+        $this->region_id = array_search($this->region, self::$regions_assoc);
     }
 
     /**
@@ -33,7 +53,7 @@ class District extends CRModel {
     public function retrieveFromID($district_id) {
         $district_id = (int)$district_id;
 
-        $sql = "SELECT d.district_id, d.district, r.region
+        $sql = "SELECT d.district_id, d.district, r.region, d.region_id
 				FROM district d
                 LEFT JOIN region r ON r.region_id = d.region_id
 				WHERE d.district_id = " . quoteSQL($district_id);
@@ -63,7 +83,7 @@ class District extends CRModel {
     public function insert() {
         if ($this->validate('insert')) {
             $sql = "INSERT district SET ";
-            $sql .= $this->_sqlSETHelper('district', 'region');
+            $sql .= $this->_sqlSETHelper('district', 'region_id');
 
             if (runQuery($sql)) {
                 $this->district_id = lastInsertedId();
@@ -78,7 +98,7 @@ class District extends CRModel {
     public function update() {
         if ($this->validate()) {
             $sql = "UPDATE district SET ";
-            $sql .= $this->_sqlSETHelper('district', 'region');
+            $sql .= $this->_sqlSETHelper('district', 'region_id');
             $sql .= " WHERE district_id = " . quoteSQL($this->district_id);
             return runQuery($sql);
         }
@@ -158,6 +178,7 @@ class District extends CRModel {
 
 
     public static function getAllNested() {
+        self::retrieveRegions();
         //uses session as cache for speed
         if (!isset($_SESSION['district_cache'])) {
             $sql = "select d.district_id, d.district, r.region

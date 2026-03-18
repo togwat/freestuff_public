@@ -217,6 +217,8 @@ class Listing extends CRModel {
         $listing_filter = new FilterHelper('listings');
         $listing_filter->setDefault('listing_type', 'free');
 
+        // initialise regions
+        District::retrieveRegions();
 
         $sql = "SELECT district_id
                 FROM listing
