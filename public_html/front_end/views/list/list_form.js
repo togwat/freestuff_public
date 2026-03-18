@@ -54,18 +54,26 @@ $(function () {
         uploadedImages[id] = currentImage;
         
         const img = $('<img>').attr('src', currentImage).css({
-            width: '80px', 
-            height: '80px', 
-            objectFit: 'cover', 
-            margin: '4px'
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
         });
         const removeBtn = $('<i>').addClass('fa fa-times').css({
             position: 'absolute',
-            top: '8px',
-            right: '8px',
+            top: '0',
+            right: '0',
+            margin: '5%',
+            width: '1.25em',
+            height: '1.25em',
+            lineHeight: '1.25em',
+            textAlign: 'center'
         });
-        
-        const wrapper = $('<div>').addClass('col-4 col-sm-3 col-md-2 p-1').attr('data-id', id).append(img, removeBtn);
+
+        const wrapper = $('<div>').addClass('col-4 col-sm-3 col-md-2 p-1').attr('data-id', id).css({
+            maxWidth: '80px',
+            maxHeight: '80px',
+            position: 'relative'
+        }).append(img, removeBtn);
 
         $('#added-picture-container').append(wrapper);
 
