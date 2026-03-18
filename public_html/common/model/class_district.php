@@ -87,6 +87,7 @@ class District extends CRModel {
 
             if (runQuery($sql)) {
                 $this->district_id = lastInsertedId();
+                unset($_SESSION['district_cache']);
                 return true;
             }
         }
@@ -100,7 +101,10 @@ class District extends CRModel {
             $sql = "UPDATE district SET ";
             $sql .= $this->_sqlSETHelper('district', 'region_id');
             $sql .= " WHERE district_id = " . quoteSQL($this->district_id);
-            return runQuery($sql);
+            if (runQuery($sql)) {
+                unset($_SESSION['district_cache']);
+                return true;
+            };
         }
     }
 
@@ -112,7 +116,10 @@ class District extends CRModel {
 
         $sql = "DELETE FROM district 
 				WHERE district_id = " . quoteSQL($district_id);
-        return runQuery($sql);
+        if (runQuery($sql)) {
+            unset($_SESSION['district_cache']);
+            return true;
+        }
     }
 
 
